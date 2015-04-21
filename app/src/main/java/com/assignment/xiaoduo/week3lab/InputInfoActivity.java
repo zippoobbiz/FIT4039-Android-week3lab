@@ -2,17 +2,19 @@ package com.assignment.xiaoduo.week3lab;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 
-public class MainActivity extends Activity {
+public class InputInfoActivity extends Activity {
 
     EditText firstName, lastName, motherName, birthCity, firstCar;
     Button clear, submit;
@@ -50,33 +52,60 @@ public class MainActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if(firstName.getText().equals(""))
+                if(firstName.getText().toString().equals(""))
                 {
                     alert("Please input first name");
-                }else if(firstName.getText().length() < 4)
+                    firstName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(firstName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(firstName.getText().toString().length() < 4)
                 {
                     alert("First name must be longer than 3 characters");
-                }else if(lastName.getText().equals(""))
+                    firstName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(firstName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(lastName.getText().toString().equals(""))
                 {
                     alert("Please input last name");
-                }else if(lastName.getText().length() < 3)
+                    lastName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(lastName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(lastName.getText().toString().length() < 3)
                 {
-                    alert("Last name must be longer than 3 characters");
-                }else if(motherName.getText().equals(""))
+                    alert("Last name must be longer than 2 characters");
+                    lastName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(lastName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(motherName.getText().toString().equals(""))
                 {
                     alert("Please input mother's maiden name");
-                }else if(motherName.getText().length() < 3)
+                    motherName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(motherName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(motherName.getText().toString().length() < 3)
                 {
                     alert("Mother's maiden name must be longer than 2 characters");
-                }else if(birthCity.getText().equals(""))
+                    motherName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(motherName, InputMethodManager.SHOW_IMPLICIT);
+                }else if(birthCity.getText().toString().equals(""))
                 {
                     alert("Please input the city your were born");
-                }else if(birthCity.getText().length() < 4)
+                    birthCity.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(birthCity, InputMethodManager.SHOW_IMPLICIT);
+                }else if(birthCity.getText().toString().length() < 4)
                 {
                     alert("City's name must be longer than 3 characters");
-                }else if(firstCar.getText().equals(""))
+                    birthCity.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(birthCity, InputMethodManager.SHOW_IMPLICIT);
+                }else if(firstCar.getText().toString().equals(""))
                 {
                     alert("Please input first car name");
+                    firstCar.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(firstCar, InputMethodManager.SHOW_IMPLICIT);
                 }else
                 {
                     String generatedFirstName = firstName.getText().toString().substring(0,3)+lastName.getText().toString().substring(0,2);
@@ -85,8 +114,8 @@ public class MainActivity extends Activity {
                     generatedFirstName = format(generatedFirstName);
                     generatedLastName = format(generatedLastName);
                     generatedPlanet = format(generatedPlanet);
-                    Intent intent = new Intent(MainActivity.this, GenerateNameActivity.class);
-                    intent.putExtra("generatedName",generatedFirstName+" "+generatedLastName+" "+generatedPlanet);
+                    Intent intent = new Intent(InputInfoActivity.this, GenerateNameActivity.class);
+                    intent.putExtra("generatedName",generatedFirstName+" "+generatedLastName+" of "+generatedPlanet);
                     startActivity(intent);
                 }
             }
